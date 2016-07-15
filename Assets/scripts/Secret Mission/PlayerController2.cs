@@ -11,6 +11,7 @@ public class PlayerController2 : MonoBehaviour {
 	public string level;
 	// Use this for initialization
 	void Start () {
+        Application.targetFrameRate = 60;
 		rb = GetComponent<Rigidbody>();
 	}
 	
@@ -27,14 +28,11 @@ public class PlayerController2 : MonoBehaviour {
             
             forceDirection.y = 0;
             rb.AddForce(forceDirection * speed);
-            print(forceDirection);
         }
         if(Input.GetKey(KeyCode.S)){
             Vector3 forceDirection = camera.GetComponent<Camera>().transform.forward;
             forceDirection.y = 0;
             rb.AddForce(forceDirection*-1 * speed);
-
-            print(forceDirection);
         }
         if(Input.GetKey(KeyCode.D)){
             Vector3 forceDirection = camera.GetComponent<Camera>().transform.right;
@@ -47,6 +45,7 @@ public class PlayerController2 : MonoBehaviour {
 	}
 
 	bool IsGrounded(){
+        print(Physics.Raycast (transform.position, - Vector3.up, GetComponent<Collider>().bounds.extents.y+ 0.15f));
 		return Physics.Raycast (transform.position, - Vector3.up, GetComponent<Collider>().bounds.extents.y+ 0.15f);
 	}
 
